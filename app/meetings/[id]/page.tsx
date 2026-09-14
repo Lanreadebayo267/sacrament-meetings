@@ -11,12 +11,13 @@ interface MeetingPageProps {
 async function getMeeting(
   id: string,
 ): Promise<SacramentMeeting> {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'}/api/meetings/${id}`,
-    {
-      cache: 'no-store',
-    },
-  );
+  const baseUrl =
+    process.env.NEXT_PUBLIC_APP_URL ??
+    `https://${process.env.VERCEL_URL}`;
+
+  const response = await fetch(`${baseUrl}/api/meetings/${id}`, {
+    cache: 'no-store',
+  });
 
   if (response.status === 404) {
     notFound();
