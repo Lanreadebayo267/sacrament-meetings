@@ -1,23 +1,21 @@
 import { redirect } from 'next/navigation';
-import { getMeetings } from '@/lib/meetings-db';
+import { getMeetingByDate } from '@/lib/meetings-db';
 
 function getMostRecentSunday(): string {
   const today = new Date();
   const dayOfWeek = today.getDay();
-
   const sunday = new Date(today);
   sunday.setDate(today.getDate() - dayOfWeek);
-
   return sunday.toISOString().split('T')[0];
 }
 
-export default function CurrentMeetingPage() {
+export default async function CurrentMeetingPage() {
   const sunday = getMostRecentSunday();
-  const meetings = getMeetings(sunday);
+  const meeting = await getMeetingByDate(sunday);
 
-  if (meetings.length === 0) {
+  if (!meeting) {
     redirect('/meetings');
   }
 
-  redirect(`/meetings/${meetings[0].id}`);
+  redirect(`/meetings/${meeting.id}`);
 }

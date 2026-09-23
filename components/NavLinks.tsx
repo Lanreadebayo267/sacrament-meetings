@@ -10,13 +10,12 @@ interface NavLinksProps {
 export default function NavLinks({ currentMeetingId }: NavLinksProps) {
   const pathname = usePathname();
 
-  const isAllMeetingsActive =
-    pathname === '/meetings' ||
-    (pathname.startsWith('/meetings/') &&
-      pathname !== `/meetings/${currentMeetingId}`);
-
   const isCurrentMeetingActive =
     currentMeetingId != null && pathname === `/meetings/${currentMeetingId}`;
+
+  const isAllMeetingsActive =
+    pathname === '/meetings' ||
+    (pathname.startsWith('/meetings/') && !isCurrentMeetingActive);
 
   const links = [
     { href: '/meetings', label: 'All Meetings', isActive: isAllMeetingsActive },
