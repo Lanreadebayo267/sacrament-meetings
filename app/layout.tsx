@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import { Geist } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import './globals.css';
 
-const geist = Geist({
-  variable: '--font-geist',
+const inter = Inter({
+  variable: '--font-inter',
   subsets: ['latin'],
 });
 
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geist.variable} min-h-screen bg-slate-100 text-slate-900 antialiased`}>
+      <body className={`${inter.variable} min-h-screen bg-slate-100 text-slate-900 antialiased`}>
         <div className="flex min-h-screen flex-col">
           <Header />
 
