@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server';
-import { getMeetings, getMeetingByDate } from '@/lib/meetings-db';
+import {
+  getMeetings,
+  getMeetingByDate,
+  getMeetingsTotalPages,
+} from '@/lib/meetings-db';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -13,8 +17,15 @@ export async function GET(request: Request) {
   }
 
   const query = searchParams.get('query') ?? '';
-  const page = Number(searchParams.get('page')) || 1;
 
+  // Total-pages path: used by the meetings list for pagination.
+  if (searchParams.get('totalPages') === 'true') {
+    const totalPages = await getMeetingsTotalPages(query);
+    return NextResponse.json({ totalPages });
+  }
+
+  const page = Number(searchParams.get('page')) || 1;
   const meetings = await getMeetings(query, page);
+
   return NextResponse.json(meetings);
 }
