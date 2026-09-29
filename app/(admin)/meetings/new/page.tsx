@@ -1,7 +1,10 @@
-export default function NewMeetingPage() {
+import CreateForm from './create-form';
+
+export default function Page() {
   return (
-    <h1 className="text-2xl font-bold text-slate-900">
-      Create Meeting — Coming in Week 04
-    </h1>
+    <main>
+      <h1>New meeting</h1>
+      <CreateForm />
+    </main>
   );
 }
