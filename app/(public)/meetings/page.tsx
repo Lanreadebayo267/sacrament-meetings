@@ -1,41 +1,9 @@
 import MeetingCard from '@/components/MeetingCard';
 import { MeetingSearch } from '@/components/MeetingSearch';
 import { Pagination } from '@/components/Pagination';
-import type { SacramentMeeting } from '@/lib/types';
+import { getMeetings, getMeetingsTotalPages } from '@/lib/meetings-db';
 
-async function getMeetings(
-  query: string,
-  page: number,
-): Promise<SacramentMeeting[]> {
-  const params = new URLSearchParams({ query, page: String(page) });
-
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/meetings?${params.toString()}`,
-    { cache: 'no-store' },
-  );
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch meetings');
-  }
-
-  return res.json();
-}
-
-async function getMeetingsTotalPages(query: string): Promise<number> {
-  const params = new URLSearchParams({ query, totalPages: 'true' });
-
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/meetings?${params.toString()}`,
-    { cache: 'no-store' },
-  );
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch total pages');
-  }
-
-  const data = await res.json();
-  return data.totalPages as number;
-}
+export const dynamic = 'force-dynamic';
 
 export default async function MeetingsPage(props: {
   searchParams?: Promise<{ query?: string; page?: string }>;
