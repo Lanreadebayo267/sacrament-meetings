@@ -2,6 +2,26 @@ import MeetingCard from '@/components/MeetingCard';
 import { MeetingSearch } from '@/components/MeetingSearch';
 import { Pagination } from '@/components/Pagination';
 import { getMeetings, getMeetingsTotalPages } from '@/lib/meetings-db';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Sacrament Meetings',
+  description:
+    'View upcoming and past sacrament meeting programs for Alakuko Ward.',
+  openGraph: {
+    title: 'Sacrament Meetings | Sacrament Meeting Planner',
+    description:
+      'View upcoming and past sacrament meeting programs for Alakuko Ward.',
+    images: [
+      {
+        url: '/lds-church.jpg',
+        width: 800,
+        height: 600,
+        alt: 'Sacrament meeting chapel interior',
+      },
+    ],
+  },
+};
 
 export const dynamic = 'force-dynamic';
 
